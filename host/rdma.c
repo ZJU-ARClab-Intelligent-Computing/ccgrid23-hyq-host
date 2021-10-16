@@ -860,10 +860,10 @@ static int nvme_rdma_configure_admin_queue(struct nvme_rdma_ctrl *ctrl,
 	ctrl->device = ctrl->queues[0].device;
 	ctrl->ctrl.numa_node = dev_to_node(ctrl->device->dev->dma_device);
 
-	/* T10-PI support */
-	if (ctrl->device->dev->attrs.device_cap_flags &
-	    IB_DEVICE_INTEGRITY_HANDOVER)
-		pi_capable = true;
+	/* Disable T10-PI support so that we can create more queues. */
+	// if (ctrl->device->dev->attrs.device_cap_flags &
+	//     IB_DEVICE_INTEGRITY_HANDOVER)
+	// 	pi_capable = true;
 
 	ctrl->max_fr_pages = nvme_rdma_get_max_fr_pages(ctrl->device->dev,
 							pi_capable);
